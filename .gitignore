@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Resultados de benchmark generados
+results/
+*.csv
+
+# Sistema operativo / editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Documentos de planificación — solo locales, NO subir al repo
+README.md
+DUDAS_PROFESOR.md
+PLAN.md
