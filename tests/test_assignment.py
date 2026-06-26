@@ -5,7 +5,9 @@ Verifica con un caso chiquito de respuesta conocida a mano:
   - el óptimo es 17 (asignación 1->2, 2->1, 3->3),
   - el greedy se queda corto (da 11) -> sirve para mostrar que greedy NO
     siempre encuentra el óptimo,
-  - la búsqueda exhaustiva pura evalúa 3! = 6 soluciones completas.
+  - la búsqueda exhaustiva pura evalúa 3! = 6 soluciones completas,
+  - las dos variantes de Ramificación y Acotamiento (n-aria y binaria) también
+    llegan al óptimo (17).
 
 Correr desde la raíz del proyecto:   python tests/test_assignment.py
 """
@@ -29,18 +31,22 @@ matriz = [
 problema = ProblemaAsigna1a1(matriz, tamano=3)
 
 greedy = problema.busqueda_greedy()
-exhaustiva = problema.busqueda_exhaustiva_pura()
-ra = problema.busqueda_exhaustiva_ra()
+pura = problema.busqueda_exhaustiva_pura()
+naria = problema.busqueda_exhaustiva_ra_naria()
+binaria = problema.busqueda_exhaustiva_ra_binaria()
 
-print("greedy     -> ganancia =", greedy.ganancia, "  asignacion =", greedy.asignado[1:])
-print("exhaustiva -> ganancia =", exhaustiva.ganancia, "  asignacion =", exhaustiva.asignado[1:],
-      "  evaluadas =", exhaustiva.soluciones_factibles)
-print("R&A        -> ganancia =", ra.ganancia, "  asignacion =", ra.asignado[1:],
-      "  evaluadas =", ra.soluciones_factibles)
+print("greedy        -> ganancia =", greedy.ganancia, " asignacion =", greedy.asignado[1:])
+print("exhaustiva    -> ganancia =", pura.ganancia, " asignacion =", pura.asignado[1:],
+      " evaluadas =", pura.soluciones_factibles)
+print("R&A n-aria    -> ganancia =", naria.ganancia, " asignacion =", naria.asignado[1:],
+      " evaluadas =", naria.soluciones_factibles)
+print("R&A binaria   -> ganancia =", binaria.ganancia, " asignacion =", binaria.asignado[1:],
+      " evaluadas =", binaria.soluciones_factibles)
 
 assert greedy.ganancia == 11, "el greedy debería dar 11 en este caso"
-assert exhaustiva.ganancia == 17, "el óptimo es 17"
-assert ra.ganancia == 17, "R&A debe coincidir con el óptimo de la exhaustiva"
-assert exhaustiva.soluciones_factibles == 6, "la exhaustiva pura evalúa 3! = 6 soluciones"
+assert pura.ganancia == 17, "el óptimo es 17"
+assert pura.soluciones_factibles == 6, "la exhaustiva pura evalúa 3! = 6 soluciones"
+assert naria.ganancia == 17, "R&A n-aria debe coincidir con el óptimo"
+assert binaria.ganancia == 17, "R&A binaria debe coincidir con el óptimo"
 
-print("\nOK: las 3 técnicas corren y dan los valores esperados.")
+print("\nOK: las 4 técnicas corren y las exhaustivas/B&B dan el óptimo (17).")
