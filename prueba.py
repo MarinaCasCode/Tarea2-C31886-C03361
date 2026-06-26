@@ -11,7 +11,8 @@ Programado por:
 
 import random
 from typing import List, Tuple
-from rich.console import Console
+from rich.console import Console, Group
+from rich.align import Align
 from rich.panel import Panel
 from rich.table import Table
 from rich.prompt import Prompt, IntPrompt, Confirm
@@ -50,69 +51,50 @@ def crear_marco(titulo: str = "") -> Panel:
     )
 
 
-def mostrar_menu_principal():
-    """Muestra el menú principal del programa."""
+def _mostrar_menu(titulo, opciones):
+    """Muestra un menú centrado: el título arriba y las opciones como un bloque
+    centrado (el número de cada opción va resaltado)."""
     console.clear()
 
-    contenido = Text()
-    contenido.append("\n" * 3)
-    contenido.append(" " * 29 + "Resolución de problemas\n\n", style="bold white")
-    contenido.append(" " * 21 + "[", style="white")
-    contenido.append("1", style="bright_white")
-    contenido.append("] Problema de asignación 1 a 1\n", style="white")
-    contenido.append(" " * 21 + "[", style="white")
-    contenido.append("2", style="bright_white")
-    contenido.append("] Problema de distribución de un recurso\n", style="white")
-    contenido.append(" " * 21 + "[", style="white")
-    contenido.append("3", style="bright_white")
-    contenido.append("] Problema de la mochila\n", style="white")
-    contenido.append(" " * 21 + "[", style="white")
-    contenido.append("4", style="bright_white")
-    contenido.append("] Problema del vendedor\n", style="white")
-    contenido.append(" " * 21 + "[", style="white")
-    contenido.append("5", style="bright_white")
-    contenido.append("] Salir\n", style="white")
+    titulo_txt = Text(titulo, style="bold cyan")
+
+    cuerpo = Text(justify="left")
+    for i, texto in enumerate(opciones, start=1):
+        if i > 1:
+            cuerpo.append("\n")
+        cuerpo.append("[", style="white")
+        cuerpo.append(str(i), style="bold bright_cyan")
+        cuerpo.append(f"] {texto}", style="white")
 
     panel = Panel(
-        contenido,
-        border_style="white",
+        Group(Align.center(titulo_txt), Text(""), Align.center(cuerpo)),
+        border_style="cyan",
         box=box.DOUBLE,
-        expand=False,
-        width=80
+        padding=(2, 4),
+        expand=True,
     )
-
     console.print(panel)
+
+
+def mostrar_menu_principal():
+    """Muestra el menú principal del programa."""
+    _mostrar_menu("Resolución de problemas", [
+        "Problema de asignación 1 a 1",
+        "Problema de distribución de un recurso",
+        "Problema de la mochila",
+        "Problema del vendedor",
+        "Salir",
+    ])
 
 
 def mostrar_menu_metodos():
     """Muestra el menú de métodos de resolución."""
-    console.clear()
-
-    contenido = Text()
-    contenido.append("\n" * 3)
-    contenido.append(" " * 30 + "Métodos de resolución\n\n", style="bold white")
-    contenido.append(" " * 15 + "[", style="white")
-    contenido.append("1", style="bright_white")
-    contenido.append("] Búsqueda Greedy\n", style="white")
-    contenido.append(" " * 15 + "[", style="white")
-    contenido.append("2", style="bright_white")
-    contenido.append("] Búsqueda Exhaustiva Pura\n", style="white")
-    contenido.append(" " * 15 + "[", style="white")
-    contenido.append("3", style="bright_white")
-    contenido.append("] Búsqueda Exhaustiva con Ramificación y Acotamiento\n", style="white")
-    contenido.append(" " * 15 + "[", style="white")
-    contenido.append("4", style="bright_white")
-    contenido.append("] Regresar al menú principal\n", style="white")
-
-    panel = Panel(
-        contenido,
-        border_style="white",
-        box=box.DOUBLE,
-        expand=False,
-        width=80
-    )
-
-    console.print(panel)
+    _mostrar_menu("Métodos de resolución", [
+        "Búsqueda Greedy",
+        "Búsqueda Exhaustiva Pura",
+        "Búsqueda Exhaustiva con Ramificación y Acotamiento",
+        "Regresar al menú principal",
+    ])
 
 
 def problema_asignacion_1a1():
