@@ -18,7 +18,7 @@ import sys
 # Permite importar src/ al correr el archivo directamente.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.assignment import ProblemaAsigna1a1
+from asign1a1 import ProblemaAsigna1a1
 
 # Matriz 1-indexada: la posición 0 no se usa (igual que en el código del profe).
 # matriz[item][recurso] = ganancia de asignar ese item a ese recurso.
