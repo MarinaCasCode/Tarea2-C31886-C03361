@@ -71,9 +71,10 @@ def _mostrar_menu(titulo, opciones):
         border_style="cyan",
         box=box.DOUBLE,
         padding=(2, 4),
-        expand=True,
+        width=70,
     )
-    console.print(panel)
+    # Align.center centra el recuadro completo dentro del ancho de la pantalla.
+    console.print(Align.center(panel))
 
 
 def mostrar_menu_principal():
