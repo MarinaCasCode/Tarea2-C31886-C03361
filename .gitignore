@@ -16,7 +16,6 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Documentos de planificación — solo locales, NO subir al repo
-README.md
+# Notas internas de planificación — solo locales, NO subir al repo
 DUDAS_PROFESOR.md
 PLAN.md
